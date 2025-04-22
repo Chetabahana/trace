@@ -1,0 +1,192 @@
+name: 'Docker Deploy Action'
+
+description: >
+  🪂  A Github Action to deploy pages conveniently
+
+branding:
+  icon: 'command'
+  color: 'red'
+
+inputs:
+  hub_username:
+    description: Username for Docker Hub
+    default: ${{ github.actor }}       
+    required: true
+  hub_password:
+    description: Docker Hub authentication token
+    required: true
+  hub_token:
+    description: Docker Hub authentication token
+    required: true
+  action_path:
+    description: Path to the dockerfile from which to build the image
+    required: true
+  credentials:
+    description: 'The gcloud credentials'
+    required: true
+  image_name:
+    description: Tag to use for the new image
+    required: true
+  dockerfile_path:
+    description: Path to the dockerfile from which to build the image
+    required: true
+  initiate_pauli_sum:
+    description: Build args
+    required: false
+    default: ""
+  docker_hub_repo_short_description:
+    description: Short description text for the docker hub repo
+    required: true
+  docker_hub_repo_readme_file_path:
+    description: |
+      Path of the md file which will be used as the docker hub repo readme
+    required: true
+  cache_src:
+    description: Path for the docker cache source
+    required: false
+    default: /tmp/.buildx-cache
+  cache_dest:
+    description: Path for the docker cache destination
+    required: false
+    default: /tmp/.buildx-cache-new
+  provider:
+    description: 'The deploy provider'
+    required: true
+  owner:
+    description: 'The deploy owner'
+    required: false
+  token:
+    description: 'The deploy token'
+    required: false
+  repository:
+    description: 'The deploy repository'
+    default: ${{ github.repository }}
+    required: false
+
+outputs:
+  artifact:
+    description: Collect artifact outputs
+    value: ${{ toJSON(steps.artifact.outputs) }}
+  variables:
+    description: Collect variables outputs
+    value: ${{ toJSON(steps.variables.outputs) }}
+
+runs:
+  using: composite
+  steps:
+    - name: Remove Existing Connection
+      shell: bash
+      run: |
+        gh variable set RERUN_RUNNER --body "false"
+
+        HEADER="Accept: application/vnd.github+json"
+        RESPONSE=$(gh api -H "${HEADER}" repos/${{ github.repository }}/actions/runners)
+        TOTAL_COUNT=$(gh api -H "${HEADER}" /repos/${{ github.repository }}/actions/runners --jq '.total_count')
+        STATUS=$(echo "$RESPONSE" | jq -r --arg NAME "${{ env.RUNNER_NAME }}" '.runners[] | select(.name == $NAME).status')
+
+        if [[ "$TOTAL_COUNT" -eq 0 ]]; then
+          gh variable set RERUN_RUNNER --body "true"
+        elif [[ "$STATUS" == "offline" ]]; then
+          gh variable set RERUN_RUNNER --body "true"
+          RUNNER_ID=$(gh api -H "${HEADER}" /repos/${{ github.repository }}/actions/runners --jq '.runners.[].id')
+          gh api --method DELETE -H "${HEADER}" /repos/${{ github.repository }}/actions/runners/${RUNNER_ID}
+        fi
+
+        /home/runner/work/_actions/eq19/eq19/v2/.github/entrypoint/init.sh ${{ inputs.action_path }}
+        mv -f /home/runner/work/_actions/eq19/eq19/v2/.github/entrypoint/dockerfile/* ${{ inputs.action_path }}/
+
+    - name: View context attributes
+      uses: actions/github-script@v7
+      with:
+        script: console.log(context)
+
+    - name: Login to DockerHub
+      uses: docker/login-action@v3
+      with:
+        username: ${{ inputs.hub_username }}
+        password: ${{ inputs.hub_token }}
+        
+    #- uses: actions/setup-python@v5
+      #with:
+        #python-version: 3.12
+        #allow-prereleases: true
+
+    #- uses: actions/cache@v4
+      #with:
+        #path: ~/.cache/pip
+        #key: ${{ runner.os }}-pip
+
+    - name: Install dependencies
+      shell: bash
+      run: |
+        mkdir my-project
+        cd my-project && git init -q
+
+        # Set up remotes
+        git remote add source $REMOTE_REPO
+        git remote add origin $TARGET_REPO
+
+        # Set up git config
+        git config --global user.name eq19
+        git config --global credential.helper store
+        git config --global init.defaultBranch master
+        git config --global user.email eq19@users.noreply.github.com
+        echo "https://eq19:$GH_TOKEN@github.com" > ~/.git-credentials
+
+        # Get list of existing target branches (once)
+        existing_target_branches=$(git ls-remote --heads origin | awk -F'/' '{print $3}')
+
+        # Fetch only gh- branches from source
+        git fetch source 'refs/heads/gh-*:refs/remotes/source/gh-*'
+
+        # Process branches
+        for remote_branch in $(git branch -r | grep 'source/gh-'); do
+          local_branch=${remote_branch#source/}
+          if grep -q "^$local_branch$" <<< "$existing_target_branches"; then
+            echo "Branch $local_branch already exists in target - skipping"
+          else
+            git checkout -b $local_branch $remote_branch
+            git push origin $local_branch
+            echo "Successfully pushed $local_branch to target"
+          fi
+        done
+
+        #python -m pip -q install --upgrade pip
+        #python -m pip -q install -r ${{ inputs.action_path }}/dataFile/requirements.txt
+  
+        ##python -m pip -q install -e ./.github/entrypoint/artifact/python
+        ##iree-compile --iree-llvmcpu-list-targets && iree-run-module --list_drivers
+
+        ##Ref: https://github.com/iree-org/iree-experimental
+        ##python ${{ inputs.action_path }}/pythonCode/testIREE.py
+        
+        ##Ref: https://github.com/tsoding/JelloVM
+        #cd ${{ inputs.action_path }} && javac javaCode/Main.java
+
+        ##Ref: https://github.com/eq19/maps/tree/v3/pythonCode
+        ##python ${{ github.workspace }}/.github/entrypoint/artifact/python/gellmann.py
+        ##cd ${{ inputs.action_path }}/pythonCode && python npreader.py -h && python map.py -h
+
+    - name: 🚀 Initiate Lexer
+      uses: devcontainers/ci@v0.3
+      with:
+        push: always
+        skipContainerUserIdUpdate: true
+        imageName: ${{ inputs.image_name }}
+        imageTag: target-${{ github.run_number }}
+        configFile: ${{ inputs.action_path }}/.devcontainer.json
+        runCmd: ls -al /
+
+    - name: 💎 Variables
+      id: variables
+      shell: bash
+      run: |
+        BASE_NAME=$(basename ${{ inputs.image_name }})
+        IFS=', '; array=($(curl -L -s 'https://registry.hub.docker.com/v2/repositories/${{ inputs.image_name }}/tags?page_size=1024' | jq -rc '."results"[]["name"]' | yq eval -P | sed "s/ /, /g"))
+        for ((i=0; i < ${#array[@]}; i++)); do
+          if [ "${array[$i]}" != "latest" ]; then
+            HUB_TOKEN=$(curl -s -H "Content-Type: application/json" -X POST -d "{\"username\": \"${{ inputs.hub_username }}\", \"password\": \"${{ inputs.hub_password }}\"}" https://hub.docker.com/v2/users/login/ | jq -r .token)
+            curl -s -i -X DELETE -H "Accept: application/json" -H "Authorization: JWT $HUB_TOKEN" https://hub.docker.com/v2/namespaces/${{ inputs.hub_username }}/repositories/$BASE_NAME/tags/${array[$i]}
+            echo "deleted: ${{ inputs.image_name }}:${array[$i]}"
+          fi
+        done
