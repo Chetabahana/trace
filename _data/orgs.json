@@ -21,7 +21,7 @@
   "is_verified": false,
   "has_organization_projects": true,
   "has_repository_projects": true,
-  "public_repos": 42,
+  "public_repos": 27,
   "public_gists": 3,
   "followers": 3,
   "following": 0,
@@ -33,7 +33,7 @@
   "total_private_repos": 0,
   "owned_private_repos": 0,
   "private_gists": 0,
-  "disk_usage": 162433,
+  "disk_usage": 1896,
   "collaborators": 0,
   "billing_email": "montysridara@gmail.com",
   "default_repository_permission": "read",
@@ -105,9 +105,9 @@
   "is_verified": false,
   "has_organization_projects": true,
   "has_repository_projects": true,
-  "public_repos": 32,
+  "public_repos": 31,
   "public_gists": 0,
-  "followers": 0,
+  "followers": 1,
   "following": 0,
   "html_url": "https://github.com/FeedMapping",
   "created_at": "2015-04-13T15:42:55Z",
@@ -158,12 +158,12 @@
     "grammar"
   ],
   "key2": [
-    "Schema",
-    "Artifacts",
-    "Assets",
-    "depot_tools",
-    "distribution",
-    "sitemap"
+    "primify",
+    "corpus",
+    "depot",
+    "build",
+    "factory",
+    "headings"
   ]
 }
 ,
@@ -189,7 +189,7 @@
   "is_verified": false,
   "has_organization_projects": true,
   "has_repository_projects": true,
-  "public_repos": 12,
+  "public_repos": 13,
   "public_gists": 0,
   "followers": 0,
   "following": 0,
@@ -201,7 +201,7 @@
   "total_private_repos": 0,
   "owned_private_repos": 0,
   "private_gists": 0,
-  "disk_usage": 11339,
+  "disk_usage": 68113,
   "collaborators": 0,
   "billing_email": "admin@eq19.com",
   "default_repository_permission": "none",
@@ -242,12 +242,12 @@
     "grammar"
   ],
   "key2": [
-    "docs",
-    "screen",
-    "builder",
-    "genius",
     "rapidjson",
-    "Ventoy"
+    "ventoy",
+    "magisk",
+    "duckdb",
+    "ci",
+    "templates"
   ]
 }
 ,
@@ -273,19 +273,19 @@
   "is_verified": false,
   "has_organization_projects": true,
   "has_repository_projects": true,
-  "public_repos": 16,
+  "public_repos": 18,
   "public_gists": 0,
   "followers": 0,
   "following": 0,
   "html_url": "https://github.com/HybridModels",
   "created_at": "2015-04-14T22:32:05Z",
-  "updated_at": "2024-05-04T08:56:50Z",
+  "updated_at": "2025-04-23T04:55:01Z",
   "archived_at": null,
   "type": "Organization",
   "total_private_repos": 0,
   "owned_private_repos": 0,
   "private_gists": 0,
-  "disk_usage": 7068,
+  "disk_usage": 142776,
   "collaborators": 0,
   "billing_email": "admin@eq19.com",
   "default_repository_permission": "none",
@@ -326,12 +326,12 @@
     "grammar"
   ],
   "key2": [
-    "JSONFeed",
-    "SEOstats",
-    "OpenSEO",
     "falcon",
-    "NPPGit",
-    "webpack"
+    "webpack",
+    "wikibox",
+    "transparency",
+    "flavio",
+    "ta-lib"
   ]
 }
 ,
@@ -357,7 +357,7 @@
   "is_verified": false,
   "has_organization_projects": true,
   "has_repository_projects": true,
-  "public_repos": 16,
+  "public_repos": 17,
   "public_gists": 0,
   "followers": 0,
   "following": 0,
@@ -410,12 +410,12 @@
     "grammar"
   ],
   "key2": [
-    "ga-beacon",
     "flakes",
     "jsonix",
     "lanyon",
-    "progit-book",
-    "wiki"
+    "wiki",
+    "sitemap",
+    "wikitemplate"
   ]
 }
 ,
@@ -431,7 +431,7 @@
   "members_url": "https://api.github.com/orgs/KernelPatterns/members{/member}",
   "public_members_url": "https://api.github.com/orgs/KernelPatterns/public_members{/member}",
   "avatar_url": "https://avatars.githubusercontent.com/u/11951861?v=4",
-  "description": "₠Quantum Project",
+  "description": "eQuantum Project",
   "name": "Hidden Dimensions",
   "company": null,
   "blog": "https://eq19.com/syntax",
@@ -441,19 +441,19 @@
   "is_verified": false,
   "has_organization_projects": true,
   "has_repository_projects": true,
-  "public_repos": 19,
+  "public_repos": 20,
   "public_gists": 0,
   "followers": 0,
   "following": 0,
   "html_url": "https://github.com/KernelPatterns",
   "created_at": "2015-04-14T22:54:25Z",
-  "updated_at": "2024-05-04T08:47:34Z",
+  "updated_at": "2025-04-26T23:38:29Z",
   "archived_at": null,
   "type": "Organization",
   "total_private_repos": 0,
   "owned_private_repos": 0,
   "private_gists": 0,
-  "disk_usage": 6336,
+  "disk_usage": 0,
   "collaborators": 0,
   "billing_email": "admin@tophyips.info",
   "default_repository_permission": "none",
@@ -494,12 +494,12 @@
     "grammar"
   ],
   "key2": [
+    "ccxt",
+    "superalgos",
+    "indodax",
+    "advance",
     "core",
-    "bulbea",
-    "pedia",
-    "poole",
-    "cards",
-    "bootstrap"
+    "freqtrade"
   ]
 }
 ,
@@ -531,13 +531,13 @@
   "following": 0,
   "html_url": "https://github.com/MappingSystem",
   "created_at": "2018-02-13T10:49:15Z",
-  "updated_at": "2025-04-16T12:00:27Z",
+  "updated_at": "2025-04-30T01:27:23Z",
   "archived_at": null,
   "type": "Organization",
   "total_private_repos": 15,
   "owned_private_repos": 14,
   "private_gists": 0,
-  "disk_usage": 305960,
+  "disk_usage": 378660,
   "collaborators": 2,
   "billing_email": "admin@eq19.com",
   "default_repository_permission": "none",
@@ -578,12 +578,12 @@
     "grammar"
   ],
   "key2": [
-    "Cloud-Site-API",
-    "Google-Ads-API",
-    "Toko-Chetabahana",
-    "KeepFit",
-    "World",
-    "Tutorial-Buka-Toko"
+    "flowchart",
+    "sequence",
+    "tree",
+    "route",
+    "channel",
+    "skema"
   ]
 }
 ,
@@ -609,7 +609,7 @@
   "is_verified": false,
   "has_organization_projects": true,
   "has_repository_projects": true,
-  "public_repos": 10,
+  "public_repos": 13,
   "public_gists": 0,
   "followers": 0,
   "following": 0,
@@ -662,12 +662,12 @@
     "grammar"
   ],
   "key2": [
-    "NeuralTeams",
     "collab",
-    "container-push",
-    "includeHTML",
     "now",
-    "wheel"
+    "wheel",
+    "prefixfree",
+    "slick",
+    "query"
   ]
 }
 ,
@@ -705,7 +705,7 @@
   "total_private_repos": 0,
   "owned_private_repos": 0,
   "private_gists": 0,
-  "disk_usage": 20284,
+  "disk_usage": 109287,
   "collaborators": 0,
   "billing_email": "admin@eq19.com",
   "default_repository_permission": "read",
@@ -747,11 +747,11 @@
   ],
   "key2": [
     "steps",
-    "jquery.soap",
     "bash",
-    "json-html",
     "store",
-    "gtm"
+    "gtm",
+    "jekyll",
+    "alzheimer"
   ]
 }
 ,
@@ -777,7 +777,7 @@
   "is_verified": false,
   "has_organization_projects": true,
   "has_repository_projects": true,
-  "public_repos": 18,
+  "public_repos": 14,
   "public_gists": 0,
   "followers": 1,
   "following": 0,
@@ -789,7 +789,7 @@
   "total_private_repos": 0,
   "owned_private_repos": 0,
   "private_gists": 0,
-  "disk_usage": 220,
+  "disk_usage": 0,
   "collaborators": 0,
   "billing_email": "admin@tophyips.info",
   "default_repository_permission": "none",
@@ -831,11 +831,11 @@
   ],
   "key2": [
     "boulder",
-    "twilio",
-    "toolbox",
     "imdisk",
-    "hexagon",
-    "server-configs"
+    "liquid",
+    "jib",
+    "cerbot",
+    "raphael"
   ]
 }
 ,
@@ -861,7 +861,7 @@
   "is_verified": false,
   "has_organization_projects": true,
   "has_repository_projects": true,
-  "public_repos": 9,
+  "public_repos": 14,
   "public_gists": 0,
   "followers": 0,
   "following": 0,
@@ -873,7 +873,7 @@
   "total_private_repos": 0,
   "owned_private_repos": 0,
   "private_gists": 0,
-  "disk_usage": 15603,
+  "disk_usage": 0,
   "collaborators": 0,
   "billing_email": "admin@tophyips.info",
   "default_repository_permission": "none",
@@ -914,12 +914,12 @@
     "grammar"
   ],
   "key2": [
-    "screen",
-    "buffer-ruby",
-    "github-graphql-action",
+    "ohmyzsh",
+    "grub",
     "scrapy",
+    "screen",
     "wpt",
-    ""
+    "slickmap"
   ]
 }
 ,
@@ -945,7 +945,7 @@
   "is_verified": false,
   "has_organization_projects": true,
   "has_repository_projects": true,
-  "public_repos": 11,
+  "public_repos": 13,
   "public_gists": 0,
   "followers": 0,
   "following": 0,
@@ -998,12 +998,12 @@
     "grammar"
   ],
   "key2": [
-    "classifier",
-    "domJSON",
     "openoffice",
-    "landing-page-theme",
-    "asciidoc",
-    "recommendations-ai"
+    "mtkimg",
+    "ace",
+    "buildozer",
+    "firadisk",
+    "underscore"
   ]
 }
 ,
@@ -1029,7 +1029,7 @@
   "is_verified": false,
   "has_organization_projects": true,
   "has_repository_projects": true,
-  "public_repos": 34,
+  "public_repos": 28,
   "public_gists": 0,
   "followers": 0,
   "following": 0,
@@ -1041,7 +1041,7 @@
   "total_private_repos": 0,
   "owned_private_repos": 0,
   "private_gists": 0,
-  "disk_usage": 234930,
+  "disk_usage": 234920,
   "collaborators": 0,
   "billing_email": "admin@eq19.com",
   "default_repository_permission": "read",
@@ -1084,9 +1084,9 @@
   "key2": [
     "pysme",
     "numqi",
-    "l2hmc-qcd",
     "pyrate",
-    "The-Standard-Model",
+    "nthmc",
+    "spectral",
     "algorithms"
   ]
 }
