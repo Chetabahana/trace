@@ -215,6 +215,7 @@ runs:
           TARGET_REPOSITORY=${{ env.TARGET_REPOSITORY }}
           WORKSPACE=/workspaces/${{ github.event.repository.name }}
           ARTIFACT=user_data/ft_client/test_client/results/orgs.json
+          OUTPUT=user_data/config_examples/config_hyperopt.example.json
 
     - name: 🗑️ Delete Docker Tags AND Images
       id: delete_images
