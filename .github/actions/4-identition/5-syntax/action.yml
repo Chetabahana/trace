@@ -112,3 +112,10 @@ runs:
         curl -s -X POST https://us-central1-feedmapping.cloudfunctions.net/function \
           -H "Authorization: Bearer ${GCP_TOKEN}" -H "Content-Type: application/json" \
           --data @${{ inputs.workspace }}/_data/orgs.json | jq '.'                
+
+    - name: ⚧️ Rerun workflow if failed
+      if: ${{ failure() }}
+      shell: bash
+      run: |
+        [[ "$GITHUB_JOB" == "parsering" ]] && gh workflow run "main.yml"
+        exit 1

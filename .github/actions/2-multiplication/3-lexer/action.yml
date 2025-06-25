@@ -164,3 +164,10 @@ runs:
         else
           exit 1
         fi
+
+    - name: ⚧️ Rerun workflow if failed
+      if: ${{ failure() }}
+      shell: bash
+      run: |
+        [[ "$GITHUB_JOB" == "lexering" ]] && gh workflow run "main.yml"
+        exit 1

@@ -153,3 +153,10 @@ runs:
             echo "deleted: ${instance_zone}/${instance_name}"
           fi
         done
+
+    - name: ⚧️ Rerun workflow if failed
+      if: ${{ failure() }}
+      shell: bash
+      run: |
+        [[ "$GITHUB_JOB" == "lexering" ]] && gh workflow run "main.yml"
+        exit 1

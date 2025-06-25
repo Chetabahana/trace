@@ -122,3 +122,10 @@ runs:
           git push
  
         fi
+
+    - name: ⚧️ Rerun workflow if failed
+      if: ${{ failure() }}
+      shell: bash
+      run: |
+        [[ "$GITHUB_JOB" == "parsering" ]] && gh workflow run "main.yml"
+        exit 1

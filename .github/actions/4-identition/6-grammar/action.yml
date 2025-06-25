@@ -192,3 +192,10 @@ runs:
           fi  
           echo -e "\nDispatched to https://github.com/${{ env.TARGET_REPOSITORY }}/actions"
         fi
+
+    - name: ⚧️ Rerun workflow if failed
+      if: ${{ failure() }}
+      shell: bash
+      run: |
+        [[ "$GITHUB_JOB" == "parsering" ]] && gh workflow run "main.yml"
+        exit 1
