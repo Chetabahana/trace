@@ -166,25 +166,68 @@ W.D. Gann: “Stocks make important changes in trend every ***30, 60, 120, 150, 
 By metaphorically linking trading components to physical forces, we propose a model that inspires a more unified approach to systematic development.
 
 ```note
-This paper presents a novel conceptual framework aligning the stages of trading strategy hyperoptimization with the hierarchy of fundamental forces in physics. 
+# A Theory-Inspired Framework for Strategy Hyperoptimization
 
-Hyperoptimization in algorithmic trading often involves tuning multiple components, such as buy/sell signals, ROI, and risk controls. To manage the complexity and guide the sequence of optimization, we introduce an analogy drawn from the layered structure of physics: from the weak nuclear force to the theory of everything.
+This paper presents a novel conceptual framework aligning the stages of trading strategy hyperoptimization with the hierarchy of fundamental forces in physics.
 
-This model offers both a logical optimization order and a conceptual narrative. The Seven Layers of Optimization and Their Physical Analogs
+Hyperoptimization in algorithmic trading involves tuning multiple interacting components — such as buy/sell logic, ROI models, risk protections, and meta-settings. To manage this complexity and define a meaningful sequence, we draw an analogy from the layered architecture of physics: from weak nuclear interactions to the theory of everything.
 
-- Weak Nuclear – [buy, custom_entry]: The buy logic initiates trades and is sensitive to short-term or localized conditions, akin to the weak nuclear force which governs subatomic particle transformations.
-- Electromagnetic (EM) – [sell, custom_exit]: Sell logic reflects reactionary and often symmetrical conditions, much like the electromagnetic force governs attraction/repulsion. These exits respond dynamically and are influenced by custom exits.
-- Electroweak – [custom_entry]: A transitional force that unifies aspects of buy and sell behavior. Here, custom_entry stands alone to symbolize this merging and the subtle influence it plays in trade execution.
-- Strong Nuclear – [trailing, protection, timeframe]: This group holds trades together, offering resistance against loss and shaping trade duration. It's the binding energy of the system, just like the strong nuclear force maintains the integrity of atomic nuclei.
-- Grand Unified Theory (GUT) – [trade, roi]: By abstracting to trade outcomes and ROI, this layer synthesizes entry/exit logic and trade structure into a unified profit model.
-- Quantum Gravity – [default, leverage]: This layer sets the curvature of the environment. Default configurations and leverage influence the system's responsiveness and inherent risk, akin to gravity shaping space-time.
-- Theory of Everything (TOE) – [all]: The total system is tuned here. This level represents full integration, optimizing all subsystems under a single theoretical roof.
+This model proposes not only a logical order of optimization but also a coherent conceptual narrative. Each stage corresponds to a fundamental force or unifying theory, collectively guiding development through **Seven Layers of Optimization**.
 
-The sequencing guides where to begin (local forces) and how to scale complexity (unification layers).
+---
 
-This model also offers pedagogical value for team communication and strategy design. Conceptually elegant and practically functional.
+## The Seven Layers of Optimization and Their Physical Analogs
 
-Mapping hyperopt stages to physics not only helps structure development but also provides a narrative lens through which one can explore strategy as an evolving system. This perspective may inspire further research in theory-driven financial modeling.
+### 1. **Weak Nuclear** – _[buy¹, custom-entry²]_
+The buy logic initiates trades and responds to localized, short-lived signals — akin to the weak nuclear force, which governs subatomic transformations. Custom entry logic represents nuanced early decision-making.
+
+### 2. **Electromagnetic (QED)** – _[sell³, custom-exit⁴]_
+The sell logic reacts to opposing conditions and manages exits through symmetric, responsive forces. Like electromagnetism, this governs interactions and balance through custom-exit dynamics.
+
+### 3. **Electroweak (QED + Weak + QM)** – _[custom-entry², custom-exit⁴, roi⁵]_
+This layer unifies buying and selling into a cohesive interactive force. **Here, quantum mechanics** is conceptually embedded: representing probabilistic filters, confidence thresholds, and dynamic decision-making within `custom-entry` and `custom-exit`. ROI emerges here as a modulated outcome of quantum-level signal interaction.
+
+### 4. **Strong Nuclear (QCD)** – _[trailing⁶, protection⁷, timeframe⁸]_
+Trailing stops, protection logic, and timeframe define the internal trade architecture. This layer offers resilience and cohesion, much like the strong nuclear force binds particles under high tension.
+
+### 5. **Grand Unified Theory (GUT)** – _[trades⁹, roi⁵]_
+Abstracting above local behaviors, this layer analyzes trade performance and profit structure. It combines earlier logic into a unifying profit mechanism and long-term strategy shaping.
+
+### 6. **Quantum Gravity (Meta-Layer)** – _[default¹⁰, leverage¹¹, global-overrides¹²]_
+This meta-layer defines the curvature of the environment. Default settings, leverage, and global overrides determine the system’s flexibility and risk profile — mirroring how gravity shapes the space-time structure of the trading universe.
+
+### 7. **Theory of Everything (TOE)** – _[all¹³]_
+The final layer integrates all previous dimensions. It represents full-system optimization, where all logic, protections, and meta-controls are harmonized into a complete strategic model.
+
+---
+
+## Benefits of the Model
+
+This structured analogy provides:
+
+- A natural progression from localized tuning to system-wide integration.
+- A conceptual narrative that aids in **team communication**, **strategic planning**, and **educational clarity**.
+- A foundation for **theory-driven financial modeling**, encouraging deeper exploration of system dynamics and unification across trading components.
+
+By mapping the **13 available optimization spaces** to this seven-layered structure — with quantum mechanics **embedded** rather than added — this framework maintains coherence with both physics and practical hyperoptimization architecture.
+
+---
+
+## Footnotes (Mapping to Hyperopt Spaces)
+
+1. buy  
+2. custom-entry  
+3. sell  
+4. custom-exit  
+5. roi  
+6. trailing  
+7. protection  
+8. timeframe  
+9. trades  
+10. default  
+11. leverage  
+12. global-overrides  
+13. all
 ```
 
 [![The Four Fundamental Forces](https://github.com/user-attachments/assets/731865b0-7033-4e1b-a587-0c75c0dcae36)](https://www.eq19.com/#prime-unit-identity)
