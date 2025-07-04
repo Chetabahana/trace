@@ -33,10 +33,13 @@ inputs:
     description: The Github personal token
     required: true
   pypi_token:
-    description: The monitor token
+    description: The pypi token
     required: true
   bot_token:
     description: The monitor token
+    required: true
+  live_token:
+    description: The trading token
     required: true
   logs_token:
     description: The warning token
@@ -90,6 +93,7 @@ runs:
         chat_id: ${{ inputs.chat_id }}
         bot_token: ${{ inputs.bot_token }}
         logs_token: ${{ inputs.logs_token }}
+        live_token: ${{ inputs.live_token }}
         image_name: ${{ inputs.image_name }}
         action_path: ${{ github.action_path }}
         hub_token: ${{ inputs.docker_hub_token }} 
