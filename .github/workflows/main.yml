@@ -49,7 +49,7 @@ jobs:
           submodules: ${{ env.JOBS_ID != 1 && 'recursive' || false }}
           
       - name: ⚙️ Build Maps
-        uses: eq19/maps@v8
+        uses: eq19/maps@v7
         id: build-parser
         with:
           token: ${{ secrets.ACCESS_TOKEN }}
