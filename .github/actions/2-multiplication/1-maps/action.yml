@@ -7,6 +7,10 @@ inputs:
   id:
     description: The deploy id
     required: false
+  run_id:
+    description: 'The run_id'
+    default: ${{ github.run_id }}
+    required: false
   hub_username:
     description: Username for Docker Hub
     default: ${{ github.actor }}
@@ -90,6 +94,42 @@ outputs:
 runs:
   using: composite
   steps:
+    - name: Detect if jobs_id=1 was cancelled
+      shell: bash
+      run: |
+        echo "Checking if job 1 was cancelled…"
+        run_id=${{ inputs.run_id }}
+
+        for i in {1..12}; do
+          echo "Polling attempt $i…"
+
+          curl -s -H "Authorization: Bearer ${{ inputs.token }}" \
+            "https://api.github.com/repos/${{ inputs.repository }}/actions/runs/$run_id/jobs" \
+            > jobs.json
+
+          job1_status=$(jq -r '.jobs[] | select(.labels[]?=="ubuntu-latest") | .conclusion' jobs.json)
+          echo "Job 1 conclusion = $job1_status"
+          if [ "$job1_status" != "null" ]; then
+            break
+          fi
+          sleep 10
+        done
+
+        if [ "$job1_status" = "cancelled" ]; then
+          echo "Job 1 was cancelled (timeout confirmed)."
+
+          if [ "$REDUCE_EPOCH" = "false" ]; then
+            REDUCE_EPOCH="2"
+          else
+          # Multiply by 2 (assuming it's a number)
+            REDUCE_EPOCH=$((REDUCE_EPOCH * 2))
+          fi
+          
+          gh workflow run "main.yml" --repo $REPO_NAME --raw-field "RUN_MODE=$RUN_MODE" --raw-field "REDUCE_EPOCH=$REDUCE_EPOCH"
+        else
+          echo "Job 1 was NOT cancelled."
+        fi
+
     - name: Login to DockerHub
       uses: docker/login-action@v3
       if: runner.os == '-Windows'
@@ -98,12 +138,12 @@ runs:
         password: ${{ inputs.hub_token }}
 
     - name: 💎 Set ID Token
-      uses: 'google-github-actions/auth@v2'
+      uses: 'google-github-actions/auth@v3'
       with:
         credentials_json: ${{ inputs.credentials }}
 
     - name: 💎 Setup Gcloud
-      uses: 'google-github-actions/setup-gcloud@v2'
+      uses: 'google-github-actions/setup-gcloud@v3'
       #with:
         #install_components: 'alpha,cloud-datastore-emulator'
 
@@ -114,7 +154,7 @@ runs:
         bash /Users/runner/work/_actions/eq19/eq19/v2/.github/entrypoint/init.sh
 
     - name: View context attributes
-      uses: actions/github-script@v7
+      uses: actions/github-script@v8
       with:
         script: console.log(context)
         
@@ -158,4 +198,6 @@ runs:
       if: ${{ failure() }}
       shell: bash
       run: |
-        [[ "$GITHUB_JOB" == "lexering" ]] && gh workflow run "main.yml"
+        [[ "$GITHUB_JOB" == "lexering" ]] && gh workflow run "main.yml" --repo "$REPO_NAME" \
+          --raw-field "RUN_MODE=$RUN_MODE" --raw-field "REMOVE_RUNNER=$RERUN_RUNNER" \
+          --raw-field "REDUCE_EPOCH=$REDUCE_EPOCH" --raw-field "BYPASS_LEXERING=$BYPASS_LEXERING"

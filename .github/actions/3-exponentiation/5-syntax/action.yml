@@ -84,15 +84,16 @@ runs:
     #Fill in metadata with ${{ steps.artifact.outputs.orgs_json }}
     - name: Run identity
       shell: bash
+      env:
+        BASE: "https://github.com/eq19/eq19.github.io.wiki.git"
+        WIKI: "https://github.com/${{ env.TARGET_REPOSITORY }}.wiki.git"      
       run: |
-        TOKEN=$(/mnt/disks/deeplearning/usr/bin/gcloud auth print-identity-token)
-        #curl -s -X POST https://us-central1-feedmapping.cloudfunctions.net/function \
-          #-H "Authorization: Bearer ${TOKEN}" -H "Content-Type: application/json" \
-          #--data @${{ github.workspace }}/docs/data.json | jq '.'
-
         # Bring GitHub Env Variables in to the config file on another container usong docker from the attached deeplearning image
-        /mnt/disks/deeplearning/usr/bin/docker exec mydb sed -i "s|your_exchange_key|${{ inputs.api_key }}|g" /home/runner/data_live/config.json
-        /mnt/disks/deeplearning/usr/bin/docker exec mydb sed -i "s|your_exchange_secret|${{ inputs.api_secret }}|g" /home/runner/data_live/config.json
+        export PATH=/home/runner/_work/_actions/eq19/eq19/v2/.github/entrypoint:$PATH && gist.sh ${BASE} $(pwd)
+        if [[ "${WIKI}" != "${BASE}" ]]; then
+          find . -type d -name "$(yq '.span' _config.yml)" -prune -exec sh -c 'gist.sh ${WIKI} "$1"' sh {} \;
+        fi
+        echo -e "\n$hr\nWORKSPACE\n$hr" && ls -alR .
 
     - name: 💎 Connect to Redis
       # Runs a script that creates a Redis client, populates
@@ -110,7 +111,7 @@ runs:
         echo '${{ inputs.pauli_sum }}'
     
     - name: 💎 Connect to postgres
-      if: env.RERUN_RUNNER == 'true'
+      if: runner.os == 'Redis'
       env:
         # use the internal host here because we have specified a container for the job.
         # If we were running the job on the VM this would be localhost
@@ -125,4 +126,6 @@ runs:
       if: ${{ failure() }}
       shell: bash
       run: |
-        [[ "$GITHUB_JOB" == "parsering" ]] && gh workflow run "main.yml"
+        [[ "$GITHUB_JOB" == "parsering" ]] && gh workflow run "main.yml" --repo "$REPO_NAME" \
+          --raw-field "RUN_MODE=$RUN_MODE" --raw-field "REMOVE_RUNNER=$RERUN_RUNNER" \
+          --raw-field "REDUCE_EPOCH=$REDUCE_EPOCH" --raw-field "BYPASS_LEXERING=$BYPASS_LEXERING"

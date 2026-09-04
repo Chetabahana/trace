@@ -1,4 +1,4 @@
-Iname: 'Jekyll Deploy Action'
+name: 'Jekyll Deploy Action'
 
 description: >
   A Github Action to deploy the Jekyll site conveniently for GitHub Pages
@@ -57,6 +57,27 @@ inputs:
   token:
     description: 'The deploy token'
     required: false
+  api_key:
+    description: The key of api application
+    required: true
+  api_secret:
+    description: The secret of api application
+    required: true
+  pypi_token:
+    description: The pypi token
+    required: true
+  bot_token:
+    description: The monitor token
+    required: true
+  live_token:
+    description: The trading token
+    required: true
+  logs_token:
+    description: The warning token
+    required: true
+  chat_id:
+    description: The telegram chat id
+    required: true
 
 outputs:
   all_outputs:
@@ -74,8 +95,12 @@ runs:
     - name: 💎 Reinvented
       shell: bash
       env:
-        BASE: "https://github.com/eq19/eq19.github.io.wiki.git"
-        WIKI: "https://github.com/${{ env.TARGET_REPOSITORY }}.wiki.git"
+        API_KEY: ${{ inputs.api_key }}
+        API_SECRET: ${{ inputs.api_secret }}
+        TELEGRAM_CHAT_ID: ${{ inputs.chat_id }}
+        MONITOR_BOT_TOKEN: ${{ inputs.bot_token }}
+        TRADING_BOT_TOKEN: ${{ inputs.live_token }}     
+        WARNING_BOT_TOKEN: ${{ inputs.logs_token }}     
       run: |
         if [ -d /mnt/disks/deeplearning/usr/local/sbin ]; then
           export PAULI_SUM=$(echo -n "${{ inputs.pauli_sum }}" | base64 --decode);
@@ -85,12 +110,13 @@ runs:
         fi
 
     - name: View context attributes
-      uses: actions/github-script@v7
+      uses: actions/github-script@v8
       with:
         script: console.log(context)
 
     - name: 🏗️ Collect outputs
       uses: mathiasvr/command-output@v2.0.0
+      if: runner.os == 'Redis'
       id: command
       with:
         run: |
@@ -100,4 +126,6 @@ runs:
       if: ${{ failure() }}
       shell: bash
       run: |
-        [[ "$GITHUB_JOB" == "parsering" ]] && gh workflow run "main.yml"
+        [[ "$GITHUB_JOB" == "parsering" ]] && gh workflow run "main.yml" --repo "$REPO_NAME" \
+          --raw-field "RUN_MODE=$RUN_MODE" --raw-field "REMOVE_RUNNER=$RERUN_RUNNER" \
+          --raw-field "REDUCE_EPOCH=$REDUCE_EPOCH" --raw-field "BYPASS_LEXERING=$BYPASS_LEXERING"
